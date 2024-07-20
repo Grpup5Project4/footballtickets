@@ -1,0 +1,221 @@
+/* body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+} */
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    padding: 20px;
+}
+
+.carddet {
+    display: flex;
+    flex-direction: row;
+    max-width: 800px;
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+.card-image img {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    object-fit: cover;
+}
+
+.card-content {
+    padding: 20px;
+    flex: 1;
+    position: relative;
+}
+
+.badge {
+    position: absolute;
+    top: 20px;
+    left: -20px;
+    background-color: #ffffff;
+    color: #333;
+    padding: 5px 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    font-size: 12px;
+    font-weight: bold;
+}
+
+h2 {
+    font-size: 1.5em;
+    margin-top: 0;
+}
+
+.details {
+    margin: 10px 0;
+    color: #777;
+}
+
+.details p {
+    margin: 5px 0;
+    display: flex;
+    align-items: center;
+}
+
+.details i {
+    margin-right: 10px;
+    color: #888;
+}
+
+.tickets {
+    margin-top: 10px;
+    color: #333;
+}
+
+.tickets strong {
+    color: #000;
+}
+
+.pricing-plans {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.pricing-toggle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 30px;
+    margin: 0 10px;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-switch label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.toggle-switch label::before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    border-radius: 50%;
+    transition: transform 0.3s;
+}
+
+input:checked + label {
+    background-color: #2196F3;
+}
+
+input:checked + label::before {
+    transform: translateX(30px);
+}
+
+.pricing-cards {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.pricing-card {
+    background:#2a2a72;
+    color: white;
+    border-radius: 10px;
+    padding: 20px;
+    width: 250px;
+    margin: 10px;
+    text-align: center;
+}
+
+.pricing-card h3 {
+    margin-top: 0;
+}
+
+.price {
+    font-size: 2em;
+    margin: 10px 0;
+}
+
+.pricing-card ul {
+    list-style: none;
+    padding: 0;
+}
+
+.pricing-card ul li {
+    margin: 10px 0;
+    text-align: left;
+}
+
+.pricing-card button {
+    background: white;
+    color: #2a2a72;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 1em;
+    margin-top: 10px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.pricing-card button:hover {
+    background: #2a2a72;
+    color: white;
+}
+
+@media (max-width: 800px) {
+    .card {
+        flex-direction: column;
+    }
+
+    .card-image img {
+        width: 100%;
+        height: auto;
+    }
+
+    .badge {
+        top: -20px;
+        left: 20px;
+    }
+
+    .pricing-cards {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .pricing-card {
+        width: 100%;
+        max-width: 300px;
+    }
+}
