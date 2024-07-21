@@ -1,0 +1,124 @@
+ 
+  
+  
+  
+  .profile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+    
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.edit-profile {
+  margin-top: 100px;
+  width: 100%;
+  background-color:#a2d1df;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.edit-profile-image h1 {
+  margin-bottom: 20px;
+  margin-top: 200px;
+  color: black;
+}
+
+.edit-profile-image img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-bottom: 20px;
+}
+
+.edit-profile form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.edit-profile form label {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  font-weight: bold;
+}
+
+.edit-profile form input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.buttons button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #3748c3;
+  color: white;
+}
+
+div.cards {
+  display: flex;
+  padding: 19px;
+  margin: 20px;
+  gap: 18px;
+}
+.cards {
+  width: 100%;
+
+  flex-wrap: wrap;
+}
+
+h2 {
+  color: black;
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 30px;
+}
+
+.card {
+  width: 32%;
+
+  flex-wrap: wrap;
+  background-color: white;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.card:hover {
+  transform: translateY(-10px);
+}
+
+.card img {
+  width: 100%;
+  height: auto;
+}
+
+.card-info {
+  padding: 20px;
+}
+
+.card-info .date {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.card-info .title {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.card-info .description {
+  font-size: 16px;
+  color: #666;
+}
