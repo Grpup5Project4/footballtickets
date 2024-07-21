@@ -3,23 +3,22 @@ import NavBar from "../components/navBar";
 import Footer from "../components/footer";
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
-import { useNavigate } from "react-router-dom";  // Import useNavigate
+import { useNavigate } from "react-router-dom";
 
 function EventCatalog() {
     const [events, setEvents] = useState([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState("");
-    const [locationFilter, setLocationFilter] = useState("");
+    const [leagueFilter, setLeagueFilter] = useState("");
     const [dateFilter, setDateFilter] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
 
-    const eventsPerPage = 9;
-    const navigate = useNavigate();  // Initialize useNavigate
+    const eventsPerPage = 12;
+    const navigate = useNavigate();
 
     useEffect(() => {
         axios.get("https://sportstest-cce07-default-rtdb.firebaseio.com/events.json")
             .then((response) => {
-                console.log("Response data:", response.data);
                 const eventsData = response.data ? Object.values(response.data) : [];
                 setEvents(eventsData);
                 setLoading(false);
@@ -35,8 +34,8 @@ function EventCatalog() {
         setCurrentPage(1);
     };
 
-    const handleLocationChange = (e) => {
-        setLocationFilter(e.target.value);
+    const handleLeagueChange = (e) => {
+        setLeagueFilter(e.target.value);
         setCurrentPage(1);
     };
 
@@ -55,7 +54,7 @@ function EventCatalog() {
 
     const filteredEvents = events.filter(event => 
         event.title.toLowerCase().includes(searchTerm.toLowerCase()) && 
-        (locationFilter === "" || event.location.toLowerCase().includes(locationFilter.toLowerCase())) &&
+        (leagueFilter === "" || event.league.toLowerCase().includes(leagueFilter.toLowerCase())) &&
         (dateFilter === "" || event.date === dateFilter)
     );
 
@@ -86,14 +85,14 @@ function EventCatalog() {
                                 value={searchTerm} 
                                 onChange={handleSearchChange} 
                             />
-                            <select onChange={handleLocationChange}>
-                                <option value="">Place</option>
-                                <option value="Amman">Amman</option>
-                                <option value="Cairo">Cairo</option>
-                                <option value="Zarqa">Zarqa</option>
-                                <option value="Jeddah">Jeddah</option>
-                                <option value="Riyad">Riyad</option>
-                                {/* Add other locations as needed */}
+                            <select onChange={handleLeagueChange}>
+                                <option value="">League</option>
+                                <option value="Serie A">Serie A</option>
+                                <option value="Premier League">Premier League</option>
+                                <option value="Ligue 1">Ligue 1</option>
+                                <option value="Bundesliga">Bundesliga</option>
+                                <option value="La Liga">La Liga</option>
+                                {/* Add other leagues as needed */}
                             </select>
                             <input 
                                 type="date" 
@@ -105,13 +104,13 @@ function EventCatalog() {
 
                     <div className="event-cards">
                         {currentEvents.map((event, index) => (
-                            <div key={index} className="card">
+                            <div key={index} className="card animate-card">
                                 <img src={event.Url} alt={event.title} />
                                 <div className="card-info">
-                                    <div className="date">{event.date}</div>
                                     <div className="title">{event.title}</div>
-                                    <div className="title">{event.location}</div>
-                                    <div className="description">{event.description}</div><br></br>
+                                    <div className="date">{event.date}</div>
+                                    <div className="league">{event.league}</div>
+                                    <div className="location">{event.location}</div>
                                     <div className="containerButton">
                                         <button 
                                             className="ticketButton"
