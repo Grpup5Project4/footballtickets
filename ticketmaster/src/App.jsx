@@ -12,6 +12,8 @@ import DashBoard from './pages/dashBoard';
 import ContactUs from './pages/contactUs';
 import AboutUs from './pages/aboutUs';
 import {createBrowserRouter,RouterProvider} from 'react-router-dom' ;
+// import './styles/Signup.css';
+// import './styles/profile.css';
 
 
 function App(){

@@ -1,0 +1,158 @@
+
+.main-container{
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+
+
+  background-Image: url(../assets/pl.jpg);
+  background-Repeat: no-repeat;
+  background-Size: cover;
+  background-position: center;
+}
+
+
+.signup-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  backdrop-filter: blur(12px);
+  align-items: center;
+  padding: 40px;
+  border: 1px solid #615050;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+  font-size: 28px;
+  margin-bottom: 20px;
+  font-weight: bold;
+  color:white;
+}
+
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.signup-form input {
+  padding: 15px;
+  margin: 13px 0;
+  border: 2px solid #242424;
+  border-radius: 14px;
+  width: 93%;
+  font-size: 15px;
+}
+
+.signup-button {
+  width: 100%;
+  background-color: #007BFF;
+  color: #fff;
+  padding: 15px;
+  border: none;
+  border-radius: 16px;
+  margin-top: 10px;
+  font-size: 16px;
+}
+
+.signup-button:hover {
+  background-color: #0056b3;
+}
+
+.or-with {
+  display: flex;
+  align-items: center;
+  margin: 20px 0;
+  width: 100%;
+}
+
+.or-with hr {
+  flex: 1;
+  border: 0;
+  height: 1px;
+  background-color: #ddd;
+}
+
+.or-with span {
+  padding: 0 10px;
+  color:white;
+  font-size: 14px;
+}
+
+.auth-buttons {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.facebook-button, .google-button {
+  padding: 15px;
+  margin: 13px 0;
+  border: 2px solid #242424;
+  border-radius: 14px;
+  width: 100%;
+  font-size: 15px;
+}
+
+.facebook-button {
+  background-color: #3b5998;
+  color: #fff;
+}
+
+.google-button {
+  border: 1px solid #ddd;
+}
+
+.login-link {
+  margin-top: 20px;
+  color: white;
+  font-size: 14px;
+  text-align: center;
+}
+
+.login-link a {
+  text-decoration: overline;
+  color: #007bff;
+  text-decoration: none;
+}
+
+.login-link a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 480px) {
+  .signup-container {
+    padding: 10px;
+    max-width: 100%;
+  }
+
+  .title {
+    font-size: 18px;
+  }
+
+  .signup-form input {
+    padding: 6px;
+  }
+
+  .signup-button {
+    padding: 6px;
+  }
+
+  .or-with span {
+    font-size: 12px;
+  }
+
+  .facebook-button, .google-button {
+    font-size: 12px;
+  }
+
+  .login-link {
+    font-size: 14px;
+  }
+}

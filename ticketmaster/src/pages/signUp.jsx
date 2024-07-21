@@ -1,4 +1,152 @@
-function SignUp (){
-    return(<div></div>)
+
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import axios from "axios";
+import { StartFirebase } from "../../public/fireBaseConfig";
+import "../styles/Signup.css";
+
+import {
+  createUserWithEmailAndPassword,
+  signInWithPopup,
+  GoogleAuthProvider,
+} from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
+import {
+  getDatabase,
+  ref,
+  get,
+} from "https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js";
+
+function SignUp() {
+  const { auth } = StartFirebase();
+  const navigate = useNavigate();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [number, setNumber] = useState("");
+  const [pass, setPass] = useState("");
+
+  const signingoogle = async () => {
+    try {
+      const provider = new GoogleAuthProvider();
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      navigate("/home");
+
+      if (user) {
+        const db = getDatabase();
+        const usersRef = ref(db, "users");
+
+        const snapshot = await get(usersRef);
+        const userCount = snapshot.size;
+        const newUserId = `userid${userCount + 1}`;
+
+        const userData = {
+          fullName: user.displayName,
+          email: user.email,
+          phone: number,
+          password: pass,
+        };
+
+        await axios.put(
+          `https://sportstest-cce07-default-rtdb.firebaseio.com/users/${newUserId}.json`,
+          userData
+        );
+        sessionStorage.setItem("userId", newUserId);
+        alert("Account Created successfully with Google");
+        navigate("/login");
+      }
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
+  const submit = async (e) => {
+    e.preventDefault();
+    try {
+      const user1 = await createUserWithEmailAndPassword(auth, email, pass);
+      const user = user1.user;
+      if (user) {
+        const db = getDatabase();
+        const usersRef = ref(db, "users");
+
+        const snapshot = await get(usersRef);
+        const userCount = snapshot.size;
+        const newUserId = `userid${userCount + 1}`;
+
+        const userData = {
+          fullName: name,
+          email: email,
+          phone: number,
+          password: pass,
+        };
+
+        await axios.put(
+          `https://sportstest-cce07-default-rtdb.firebaseio.com/users/${newUserId}.json`,
+          userData
+        );
+        sessionStorage.setItem("userId", newUserId);
+        alert("Account Created successfully");
+        navigate("/login");
+      }
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
+  return (
+    <div className="main-container">
+      <div className="signup-container">
+        <h1 className="title">Create an account</h1>
+
+        <form className="signup-form" onSubmit={submit}>
+          <input
+            type="text"
+            value={name}
+            placeholder="Enter Your Username"
+            required
+            onChange={(e) => setName(e.target.value)}
+          />
+          <input
+            type="email"
+            value={email}
+            placeholder="Enter Your Email"
+            required
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            type="tel"
+            value={number}
+            placeholder="Enter Your Phone Number"
+            required
+            onChange={(e) => setNumber(e.target.value)}
+          />
+          <input
+            type="password"
+            value={pass}
+            placeholder="Enter Your Password"
+            required
+            onChange={(e) => setPass(e.target.value)}
+          />
+          <button type="submit" className="signup-button">
+            Sign Up
+          </button>
+        </form>
+        <div className="or-with">
+          <hr />
+          <span>Or With</span>
+          <hr />
+        </div>
+        <div className="auth-buttons">
+          <button className="facebook-button">Signup with Facebook</button>
+          <button className="google-button" onClick={signingoogle}>
+            Signup with Google
+          </button>
+        </div>
+        <p className="login-link">
+          Already have an account? <Link to="/login">Login</Link>
+        </p>
+      </div>
+    </div>
+  );
 }
+
 export default SignUp;
