@@ -2,9 +2,9 @@ import React, { useState, createContext } from "react";
 import PayPalButton from "./PayPalButton";
 import { saveOrderToFirebase } from "./firebaseUtils";
 
-export const PriceContext = createContext();  // Correct context creation
+export const PriceContext = createContext();
 
-const PaypalConfig = ({ event, totalPrice, userId, ticketType, quantity }) => {
+const PaypalConfig = ({ event, totalPrice, userId, ticketType, quantity, downloadPDF }) => {
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState(null);
 
@@ -25,7 +25,10 @@ const PaypalConfig = ({ event, totalPrice, userId, ticketType, quantity }) => {
         };
 
         saveOrderToFirebase(orderId, orderData, userId)
-            .then(() => setSuccess(true))
+            .then(() => {
+                setSuccess(true);
+                
+            })
             .catch((err) => setError(err));
     };
 
@@ -38,11 +41,15 @@ const PaypalConfig = ({ event, totalPrice, userId, ticketType, quantity }) => {
         <div>
             <PriceContext.Provider value={totalPrice}>
                 {success ? (
-                    <div>Payment successful! Your order is confirmed.</div>
+                    <div>
+                        <p>Payment successful! Your order is confirmed.</p>
+                        <button onClick={downloadPDF} className="mt-4 bg-blue-500 text-white p-2 rounded hover:bg-blue-600">
+                            Download PDF
+                        </button>
+                    </div>
                 ) : (
                     <PayPalButton onSuccess={handleSuccess} onError={handleError} />
-                )
-                }
+                )}
                 {error && <div className="error">Payment error: {error.message}</div>}
             </PriceContext.Provider>
         </div>

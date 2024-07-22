@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import PaypalConfig from './PaypalConfig';
+import jsPDF from 'jspdf';
 import './cartView.css';
+import myImage from '../../assets/vsImg.png';
+
 
 const CartView = () => {
-    const userId = '-O2OAMx8XWb8UG-w6QPA';
+    const userId = sessionStorage.getItem("userId");
     const location = useLocation();
     const { event, ticketType, price } = location.state || {};
 
@@ -50,13 +53,49 @@ const CartView = () => {
     );
     const discountedTotal = totalPrice - (totalPrice * discount) / 100;
 
+    const generatePDF = () => {
+        const doc = new jsPDF();
+        doc.setFontSize(20);
+        doc.text('Purchase Ticket', 20, 20);
+        doc.setFontSize(12);
+        doc.text(`Event: ${event.title}`, 20, 40);
+        doc.text(`Ticket Type: ${ticketType}`, 20, 50);
+        doc.text(`Quantity: ${cartItems[0].quantity}`, 20, 60);
+        doc.text(`Price: $${price}`, 20, 70);
+        doc.text(`Discount: ${discount}%`, 20, 80);
+        doc.text(`Total: $${discountedTotal.toFixed(2)}`, 20, 90);
+        doc.save('purchase_ticket.pdf');
+    };
+    let matchTitle = event.title;
+    const teams = matchTitle.split("vs")
+
+
+
     return (
         <div className="flex flex-col md:flex-row justify-center items-start md:space-x-8 p-6">
-            <div className="w-full md:w-3/5 mb-6 md:mb-0">
+            <div className="w-full md:w-3/5 mb-6 md:mb-0 ">
+           
+                
+                <div className="bg-[url('./assets/ticketImg.png')] bg-cover h-60 flex flex-col">
+                    <p className='font-graduate text-4xl text-gray-900 dark:text-white ml-12 mt-5'>{event.league} Match</p>
+                    <div className='flex flex-row ml-10 mt-12'>
+                        <p className='font-graduate text-xl text-gray-900 dark:text-white'>{teams[0]} </p>
+                        <img src={myImage} alt="" className='h-5 mt-1' />
+                        <p className='font-graduate text-xl text-gray-900 dark:text-white'>{teams[1]} </p>
+                    </div>
+
+
+
+
+                    
+                    
+
+
+                </div>
                 <table className="min-w-full bg-white">
                     <thead className="bg-blue-500 text-white">
                         <tr>
-                            <th className="w-1/5 py-3 px-4 text-left">Product</th>
+                            <th className="w-1/5 py-3 px-4 text-left">Event</th>
                             <th className="w-1/5 py-3 px-4 text-center">Price</th>
                             <th className="w-1/5 py-3 px-4 text-center">Quantity</th>
                             <th className="w-1/5 py-3 px-4 text-center">Subtotal</th>
@@ -134,7 +173,14 @@ const CartView = () => {
                     <span>Total</span>
                     <span>${discountedTotal.toFixed(2)}</span>
                 </div>
-                <PaypalConfig event={event} ticketType={ticketType} quantity={1} totalPrice={discountedTotal} userId={userId} />
+                <PaypalConfig
+                    event={event}
+                    ticketType={ticketType}
+                    quantity={1}
+                    totalPrice={discountedTotal}
+                    userId={userId}
+                    downloadPDF={generatePDF}
+                />
             </div>
         </div>
     );
