@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js';
+import bgvid from '../assets/bgvid.mp4'; // Adjust the path as needed
 
 const Hero = () => {
     const [user, setUser] = useState(null);
@@ -20,19 +21,22 @@ const Hero = () => {
     }, []);
 
     return (
-        <div className="relative bg-gradient-to-r from-purple-600 to-blue-600 h-screen text-white overflow-hidden">
+        <div className="relative h-screen text-white overflow-hidden">
             <div className="absolute inset-0">
-                <img 
-                    src="https://images8.alphacoders.com/355/thumb-1920-355962.jpg" 
-                    alt="Background Image" 
-                    className="object-cover object-center w-full h-full" 
+                <video 
+                    src={bgvid}
+                    autoPlay
+                    muted
+                    loop
+                     preload="auto"
+                    className="object-cover object-center w-full h-full transition-all duration-1000 ease-in-out"
                 />
                 <div className="absolute inset-0 bg-black opacity-50"></div>
             </div>
             
             <div className="relative z-10 flex flex-col justify-center items-center h-full text-center">
                 <h1 className="text-3xl font-bold leading-tight mb-4">
-                    Book now and be part of the roar of the crowd!
+                    Book your ticket now and be part of the roar of the crowd!
                 </h1>
                 
                 {user ? (

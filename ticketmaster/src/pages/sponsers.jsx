@@ -32,7 +32,7 @@ const Sponsors = () => {
                             src={url}
                             alt={`Sponsor logo ${index + 1}`}
                             style={{
-                                height: '5rem',
+                                height: '8rem',
                                 flexShrink: 0,
                                 marginRight: '2rem',
                             }}

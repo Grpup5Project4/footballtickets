@@ -1,12 +1,11 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import axios from "axios";
 import { StartFirebase } from "../../public/fireBaseConfig";
 import {
   createUserWithEmailAndPassword,
   signInWithPopup,
 } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
-import { ref, get, push } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js";
+import { ref, set } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js";
 import "../styles/Signup.css";
 
 // Initialize Firebase services
@@ -26,9 +25,6 @@ function SignUp() {
       navigate("/home");
 
       if (user) {
-        const usersRef = ref(database, "users");
-        const newUserRef = push(usersRef); // Generate a new unique user ID
-
         const userData = {
           fullName: user.displayName,
           email: user.email,
@@ -36,11 +32,7 @@ function SignUp() {
           password: pass,
         };
 
-        await axios.put(
-          `${newUserRef.toString()}.json`,
-          userData
-        );
-        sessionStorage.setItem("userId", newUserRef.key);
+        await set(ref(database, `users/${user.uid}`), userData);
         alert("Account Created successfully with Google");
         navigate("/login");
       }
@@ -55,9 +47,6 @@ function SignUp() {
       const user1 = await createUserWithEmailAndPassword(auth, email, pass);
       const user = user1.user;
       if (user) {
-        const usersRef = ref(database, "users");
-        const newUserRef = push(usersRef); // Generate a new unique user ID
-
         const userData = {
           fullName: name,
           email: email,
@@ -65,11 +54,7 @@ function SignUp() {
           password: pass,
         };
 
-        await axios.put(
-          `${newUserRef.toString()}.json`,
-          userData
-        );
-        sessionStorage.setItem("userId", newUserRef.key);
+        await set(ref(database, `users/${user.uid}`), userData);
         alert("Account Created successfully");
         navigate("/login");
       }
@@ -115,18 +100,21 @@ function SignUp() {
           <button type="submit" className="signup-button">
             Sign Up
           </button>
-        </form>
+          
         <div className="or-with">
           <hr />
           <span>Or With</span>
           <hr />
         </div>
+
         <div className="auth-buttons">
-          <button className="facebook-button">Signup with Facebook</button>
+          
           <button className="google-button" onClick={signingoogle}>
             Signup with Google
           </button>
         </div>
+        </form>
+        
         <p className="login-link">
           Already have an account? <Link to="/login">Login</Link>
         </p>

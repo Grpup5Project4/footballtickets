@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -38,6 +39,7 @@ const CustomArrow = ({ className, style, onClick, direction }) => {
 
 const Available = () => {
   const [events, setEvents] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -90,8 +92,12 @@ const Available = () => {
     ],
   };
 
+  const handleButtonClick = (event) => {
+    navigate("/eventdetails", { state: { event } });
+  };
+
   return (
-    <div className="bg-white min-h-screen text-black">
+    <div className="bg-white h-[70vh] text-black">
       <h1 className="text-4xl text-center py-8">Special Discount</h1>
       <div className="container mx-auto px-4 mb-8">
         <Slider {...settings} className="relative">
@@ -118,7 +124,10 @@ const Available = () => {
                   </p>
                 </div>
                 <div className="p-6 pt-0">
-                  <button className="bg-green-600 py-3 px-6 text-xs font-bold uppercase text-white shadow-md transition-all hover:shadow-lg focus:opacity-85 active:opacity-85">
+                  <button
+                    onClick={() => handleButtonClick(event)}
+                    className="bg-green-600 py-3 px-6 text-xs font-bold uppercase text-white shadow-md transition-all hover:shadow-lg focus:opacity-85 active:opacity-85"
+                  >
                     Show more details
                   </button>
                 </div>
