@@ -1,23 +1,18 @@
-
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import { StartFirebase } from "../../public/fireBaseConfig";
-import "../styles/Signup.css";
-
 import {
   createUserWithEmailAndPassword,
   signInWithPopup,
-  GoogleAuthProvider,
 } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
-import {
-  getDatabase,
-  ref,
-  get,
-} from "https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js";
+import { ref, get, push } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js";
+import "../styles/Signup.css";
+
+// Initialize Firebase services
+const { auth, database, provider } = StartFirebase();
 
 function SignUp() {
-  const { auth } = StartFirebase();
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -26,18 +21,13 @@ function SignUp() {
 
   const signingoogle = async () => {
     try {
-      const provider = new GoogleAuthProvider();
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
       navigate("/home");
 
       if (user) {
-        const db = getDatabase();
-        const usersRef = ref(db, "users");
-
-        const snapshot = await get(usersRef);
-        const userCount = snapshot.size;
-        const newUserId = `userid${userCount + 1}`;
+        const usersRef = ref(database, "users");
+        const newUserRef = push(usersRef); // Generate a new unique user ID
 
         const userData = {
           fullName: user.displayName,
@@ -47,10 +37,10 @@ function SignUp() {
         };
 
         await axios.put(
-          `https://sportstest-cce07-default-rtdb.firebaseio.com/users/${newUserId}.json`,
+          `${newUserRef.toString()}.json`,
           userData
         );
-        sessionStorage.setItem("userId", newUserId);
+        sessionStorage.setItem("userId", newUserRef.key);
         alert("Account Created successfully with Google");
         navigate("/login");
       }
@@ -65,12 +55,8 @@ function SignUp() {
       const user1 = await createUserWithEmailAndPassword(auth, email, pass);
       const user = user1.user;
       if (user) {
-        const db = getDatabase();
-        const usersRef = ref(db, "users");
-
-        const snapshot = await get(usersRef);
-        const userCount = snapshot.size;
-        const newUserId = `userid${userCount + 1}`;
+        const usersRef = ref(database, "users");
+        const newUserRef = push(usersRef); // Generate a new unique user ID
 
         const userData = {
           fullName: name,
@@ -80,10 +66,10 @@ function SignUp() {
         };
 
         await axios.put(
-          `https://sportstest-cce07-default-rtdb.firebaseio.com/users/${newUserId}.json`,
+          `${newUserRef.toString()}.json`,
           userData
         );
-        sessionStorage.setItem("userId", newUserId);
+        sessionStorage.setItem("userId", newUserRef.key);
         alert("Account Created successfully");
         navigate("/login");
       }

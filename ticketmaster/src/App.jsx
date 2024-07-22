@@ -18,7 +18,7 @@ import {createBrowserRouter,RouterProvider} from 'react-router-dom' ;
 
 function App(){
   const router = createBrowserRouter([
-  {path:'/',element:<ContactUs />,errorElement : <div>404 Not Found</div>}
+  {path:'/',element:<Home />,errorElement : <div>404 Not Found</div>}
  ,{path:'aboutus',element:<AboutUs/> ,errorElement : <div>404 Not Found</div>}
  ,{path:'contactus',element:<ContactUs/> ,errorElement : <div>404 Not Found</div>}
  ,{path:'signup',element:<SignUp/> ,errorElement : <div>404 Not Found</div>}

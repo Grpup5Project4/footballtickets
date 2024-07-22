@@ -21,7 +21,7 @@ function Login() {
       const user = await signInWithEmailAndPassword(auth, email, pass);
       if (user) {
         alert("Logged in successfully");
-        navigate("/home");
+        navigate("/");
       }
     } catch (error) {
       alert(error.message);
@@ -35,13 +35,13 @@ function Login() {
       const user = result.user;
       console.log(result);
 
-      navigate("/home");
+      navigate("/");
  
 
       if (user) {
         
         alert("Logged in with Google successfully");
-        navigate("/home");
+        navigate("/");
       }
     } catch (error) {
       alert(error.message);
