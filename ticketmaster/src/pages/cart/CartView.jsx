@@ -4,7 +4,7 @@ import PaypalConfig from './PaypalConfig';
 import './cartView.css';
 
 const CartView = () => {
-    const userId = 'userid14';
+    const userId = '-O2OAMx8XWb8UG-w6QPA';
     const location = useLocation();
     const { event, ticketType, price } = location.state || {};
 
