@@ -33,8 +33,17 @@
     backdrop-filter: blur(8px); /* Apply blur effect only to the content area */
 }
 
+.hero-content h1{
+    font-size: x-large;
+}
+.hero-content p{
+    font-size: large;
+}
+
 .hero-content h1, .hero-content p {
     margin: 0;
+    
+    
 }
 
 /* Event Details */

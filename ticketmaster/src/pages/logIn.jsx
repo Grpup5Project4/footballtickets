@@ -1,4 +1,3 @@
-
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import "../styles/Signup.css";
@@ -20,6 +19,7 @@ function Login() {
     try {
       const user = await signInWithEmailAndPassword(auth, email, pass);
       if (user) {
+        sessionStorage.setItem("userId" , user.user.uid)
         alert("Logged in successfully");
         navigate("/");
       }
@@ -74,16 +74,17 @@ function Login() {
           <button type="submit" className="signup-button">
             Log In
           </button>
-        </form>
-        <div className="or-with">
+          <div className="or-with">
           <hr />
           <span>Or With</span>
           <hr />
         </div>
-        <button className="facebook-button">Login with Facebook</button>
+      
         <button className="google-button" onClick={loginWithGoogle}>
           Login with Google
         </button>
+        </form>
+     
         <p className="login-link">
           Dont have an account? <Link to="/signup">Sign Up</Link>
         </p>
