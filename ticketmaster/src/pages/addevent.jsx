@@ -1,4 +1,4 @@
-// src/components/AddEvent.js
+
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
@@ -29,12 +29,12 @@ const AddEvent = ({ editMode, eventData, onSubmit }) => {
         e.preventDefault();
         onSubmit({ title, description, date, location, GPrice, VPrice, GAvailability, VAvailability });
     };
-
+/*****************************//*//*//*//* */
     return (
-        <div className="bg-gray-800 shadow-md rounded-lg p-6 mb-6">
+        <div id='add' className="bg-gray-800 shadow-md rounded-lg p-6 mb-6">
             <h2 className="text-2xl font-semibold mb-4">{editMode ? 'Edit Event' : 'Add Event'}</h2>
             <form onSubmit={handleSubmit}>
-                {/* Form fields */}
+               
                 <div className="mb-4">
                     <label className="block">Event Title:</label>
                     <input

@@ -98,7 +98,7 @@ const Discount = () => {
 
   return (
     <div className="bg-white min-h-screen text-black">
-      <h1 className="text-4xl text-center py-8">Special Discount</h1>
+      <h1 className="text-4xl text-center py-8">Coming Soon</h1>
       <div className="container mx-auto px-4 mb-8">
         <Slider {...settings} className="relative">
           {events.map((event) => (
@@ -128,7 +128,7 @@ const Discount = () => {
                     onClick={() => handleButtonClick(event)}
                     className="bg-green-600 py-3 px-6 text-xs font-bold uppercase text-white shadow-md transition-all hover:shadow-lg focus:opacity-85 active:opacity-85"
                   >
-                    Show more details
+                     Details
                   </button>
                 </div>
               </div>

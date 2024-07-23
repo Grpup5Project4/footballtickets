@@ -1,4 +1,4 @@
-// src/components/AllEvents.js
+
 import React from 'react';
 
 const AllEvents = ({ events, onEdit, onDelete }) => {

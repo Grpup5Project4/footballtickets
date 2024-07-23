@@ -32,7 +32,7 @@ const Overview = () => {
     }, []);
 
     return (
-        <div className="p-6 bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 rounded-lg shadow-lg">
+        <div id='over' className="p-6 bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 rounded-lg shadow-lg">
             <h2 className="text-2xl font-bold text-white mb-6">Overview</h2>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
                 <div className="bg-white p-4 rounded-lg shadow-md flex flex-col items-center justify-center">
