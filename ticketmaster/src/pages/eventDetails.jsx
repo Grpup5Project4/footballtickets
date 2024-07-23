@@ -2,11 +2,16 @@ import "../styles/eventDetails.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import NavBar from "../components/navBar";
 import Footer from "../components/footer";
+import React, { useEffect } from "react";
 
 function EventDetails() {
     const location = useLocation();
     const navigate = useNavigate();
     const { event } = location.state || {};
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     if (!event) {
         return <div>Event not found.</div>;

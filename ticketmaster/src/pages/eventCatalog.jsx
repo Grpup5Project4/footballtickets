@@ -46,6 +46,7 @@ function EventCatalog() {
 
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
+        window.scrollTo(0, 0);
     };
 
     const handleViewDetails = (event) => {

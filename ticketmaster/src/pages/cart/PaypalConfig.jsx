@@ -1,5 +1,6 @@
-import React, { useState, createContext } from "react";
+import React, { useState, useEffect, createContext } from "react";
 import PayPalButton from "./PayPalButton";
+import { useNavigate } from "react-router-dom";
 import { saveOrderToFirebase } from "./firebaseUtils";
 
 export const PriceContext = createContext();
@@ -7,9 +8,9 @@ export const PriceContext = createContext();
 const PaypalConfig = ({ event, totalPrice, userId, ticketType, quantity, downloadPDF }) => {
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState(null);
+    const navigate = useNavigate();
 
     sessionStorage.setItem('finalPrice', totalPrice);
-
     const handleSuccess = (details) => {
         const orderId = details.id;
         const orderData = {
@@ -27,7 +28,6 @@ const PaypalConfig = ({ event, totalPrice, userId, ticketType, quantity, downloa
         saveOrderToFirebase(orderId, orderData, userId)
             .then(() => {
                 setSuccess(true);
-                
             })
             .catch((err) => setError(err));
     };
@@ -35,6 +35,12 @@ const PaypalConfig = ({ event, totalPrice, userId, ticketType, quantity, downloa
     const handleError = (err) => {
         console.error("PayPal Checkout Error:", err);
         setError(err);
+    };
+
+    const handlePayPalButtonClick = () => {
+        if (!sessionStorage.getItem("userId")) {
+            navigate("/login");
+        }
     };
 
     return (
@@ -48,7 +54,7 @@ const PaypalConfig = ({ event, totalPrice, userId, ticketType, quantity, downloa
                         </button>
                     </div>
                 ) : (
-                    <PayPalButton onSuccess={handleSuccess} onError={handleError} />
+                            <PayPalButton onClick={handlePayPalButtonClick} onSuccess={handleSuccess} onError={handleError} />
                 )}
                 {error && <div className="error">Payment error: {error.message}</div>}
             </PriceContext.Provider>
