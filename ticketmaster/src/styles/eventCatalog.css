@@ -161,7 +161,7 @@ body {
 .ticketButton {
     background-color: #16A34A; /* New color */
     color: white; /* White text */
-    border-radius: 20px;
+    /* border-radius: 20px; */
     padding: 10px 20px;
     border: none;
     cursor: pointer;
