@@ -44,7 +44,7 @@ const Hero = () => {
                 ) : (
                     <Link 
                         to="/signup" 
-                        className="rounded-md bg-green-600 px-3 py-1.5 font-dm text-sm font-medium text-white shadow-md transition-transform duration-200 ease-in-out hover:scale-[1.03]"
+                        className=" bg-green-600  w-24 h-10 px-3 py-2 font-dm font-medium text-white shadow-md transition-transform duration-200 ease-in-out hover:scale-[1.03]"
                     >
                         Sign Up
                     </Link>

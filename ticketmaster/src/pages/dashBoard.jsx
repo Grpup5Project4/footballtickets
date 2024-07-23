@@ -1,4 +1,4 @@
-// src/pages/DashBoard.js
+
 import Dnavbar from "../components/DnabBar";
 import Overview from "./overview";
 import AddEvent from './addevent';
@@ -90,7 +90,7 @@ const DashBoard = () => {
                     VAvailability: eventData.VAvailability
                 }
             },
-            imageUrl: '' // Add this if needed
+            imageUrl: '' 
         };
 
         try {
@@ -118,7 +118,7 @@ const DashBoard = () => {
                     VAvailability: eventData.VAvailability
                 }
             },
-            imageUrl: '' // Add this if needed
+           
         };
 
         try {

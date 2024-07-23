@@ -5,6 +5,7 @@ import Sponsers from "./sponsers";
 import Hero from "./hero";
 import Navbar from "../components/navBar";
 import Footer from "../components/footer";
+import Faq from "./faq";
 function Home (){
 
   return(
@@ -16,6 +17,7 @@ function Home (){
 <Sponsers></Sponsers>
 <AboutUs></AboutUs>
      <Discount/>
+     <Faq></Faq>
 <Footer></Footer>
 
     

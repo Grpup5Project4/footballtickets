@@ -1,4 +1,4 @@
-// src/components/Users.js
+
 import React from 'react';
 
 const Users = ({ users, onDelete }) => {

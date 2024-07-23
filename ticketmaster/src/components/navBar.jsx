@@ -2,6 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { StartFirebase } from "../../public/fireBaseConfig"; // Ensure Firebase is initialized here
 import { getAuth, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUserCircle } from '@fortawesome/free-regular-svg-icons'; // Make sure this matches the icon you are using
+import '@fortawesome/fontawesome-svg-core/styles.css'; // Import FontAwesome styles
+
 
 const Navbar = () => {
     const [userId, setUserId] = useState(null);
@@ -67,24 +71,32 @@ const Navbar = () => {
                         <Link to="/catalog">Home</Link>
                     </li>
                     <li className="pt-1.5 font-dm text-xl font-medium text-grey">
-                        <Link to="/catalog">Events</Link>
+                        <Link to="/catalog">Matches</Link>
                     </li>
-                    <li className="pt-1.5 font-dm text-xl font-medium text-grey">
-                        <Link to="/profile">Profile</Link>
-                    </li>
+                   
                     <li className="pt-1.5 font-dm text-xl font-medium text-grey">
                         <Link to="/contactus">Support</Link>
                     </li>
                 </ul>
                 <div className="flex-grow"></div>
                 <div className="hidden w-[25%] items-center justify-end gap-6 md:flex">
-                    <a
-                        href="#"
-                        onClick={handleAuthClick}
-                        className="rounded-md bg-green-600 px-3 py-1.5 font-semibold text-xl font-medium text-white shadow-md transition-transform duration-200 ease-in-out hover:scale-[1.03]"
-                    >
-                        {userId ? 'Log out' : 'Log in'}
-                    </a>
+
+                <li className="pt-1.5 text-xl font-medium text-green-600 list-none">
+    <Link to="/profile">
+        <FontAwesomeIcon icon={faUserCircle} className="text-3xl" />
+    </Link>
+</li>
+                  
+
+<a
+  href="#"
+  onClick={handleAuthClick}
+  className={`px-3 py-1.5 font-semibold text-xl font-medium text-white shadow-md transition-transform duration-200 ease-in-out hover:scale-[1.03] ${
+    userId ? 'bg-red-600' : 'bg-green-600'
+  }`}
+>
+  {userId ? 'Log out' : 'Log in'}
+</a>
                 </div>
                 <div className="relative flex items-center justify-center md:hidden">
                     <button type="button">

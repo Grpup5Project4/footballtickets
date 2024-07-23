@@ -22,7 +22,7 @@ function SignUp() {
     try {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
-      navigate("/home");
+      navigate("/");
 
       if (user) {
         const userData = {
