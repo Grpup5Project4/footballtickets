@@ -99,7 +99,7 @@ function Profile() {
             <div className="flex justify-between mt-6">
               <button
                 type="submit"
-                className="px-4 py-2 bg-green-600 text-white font-semibold rounded-md hover:bg-blue-600"
+                className="px-4 py-2 bg-green-600 text-white font-semibold rounded-md hover:bg-green-700"
               >
                 Save
               </button>
@@ -117,12 +117,12 @@ function Profile() {
         <div className="space-y-6">
           {userData.orders &&
             Object.entries(userData.orders).map(([orderId, order]) => (
-              <div key={orderId} className="bg-white shadow-md rounded-lg p-4">
-                <div className="text-sm text-gray-500 mb-2">
+              <div key={orderId} className="bg-gray-800 text-white shadow-md rounded-lg p-4">
+                <div className="text-sm text-gray-400 mb-2">
                   {new Date(order.createdAt).toLocaleDateString()}
                 </div>
                 <div className="text-lg font-semibold mb-2">{order.eventTitle}</div>
-                <div className="text-gray-700">
+                <div className="text-gray-300">
                   Status: {order.status}
                   <br />
                   Quantity: {order.tickets.quantity}

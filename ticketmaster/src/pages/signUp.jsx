@@ -7,9 +7,11 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
 import { ref, set } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js";
 import "../styles/Signup.css";
+import Swal from "sweetalert2";
 
 // Initialize Firebase services
 const { auth, database, provider } = StartFirebase();
+
 
 function SignUp() {
   const navigate = useNavigate();
@@ -20,7 +22,7 @@ function SignUp() {
 
   const signingoogle = async () => {
     try {
-      const result = await signInWithPopup(auth, provider);
+      const result = await signInWithPopup(auth, provider); 
       const user = result.user;
       navigate("/");
 
@@ -33,11 +35,19 @@ function SignUp() {
         };
 
         await set(ref(database, `users/${user.uid}`), userData);
-        alert("Account Created successfully with Google");
+       Swal.fire({
+          icon: 'success',
+          title: 'Account Created Successfully with Google',
+          showConfirmButton: true
+        });
         navigate("/login");
       }
     } catch (error) {
-      alert(error.message);
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: error.message
+      });
     }
   };
 
@@ -55,11 +65,19 @@ function SignUp() {
         };
 
         await set(ref(database, `users/${user.uid}`), userData);
-        alert("Account Created successfully");
+        Swal.fire({
+          icon: 'success',
+          title: 'Account Created Successfully',
+          showConfirmButton: true
+        });
         navigate("/login");
       }
     } catch (error) {
-      alert(error.message);
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: error.message
+      });
     }
   };
 

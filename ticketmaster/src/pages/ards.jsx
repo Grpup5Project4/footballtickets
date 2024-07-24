@@ -98,7 +98,7 @@ const Available = () => {
 
   return (
     <div className="bg-white h-[70vh] text-black">
-      <h1 className="text-4xl text-center py-8">Special Discount</h1>
+      <h1 className=" text-3xl font-bold text-dark text-center py-8">Special Discount</h1>
       <div className="container mx-auto px-4 mb-8">
         <Slider {...settings} className="relative">
           {events.map((event) => (

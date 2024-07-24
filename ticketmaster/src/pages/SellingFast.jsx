@@ -98,8 +98,8 @@ const Discount = () => {
 
   return (
     <div className="bg-white min-h-screen text-black">
-      <h1 className="text-4xl text-center py-8">Coming Soon</h1>
-      <div className="container mx-auto px-4 mb-8">
+      <h1 className=" text-3xl font-bold text-dark text-center py-8">Coming Soon</h1>
+      <div className="container mx-auto px-4 mb-4">
         <Slider {...settings} className="relative">
           {events.map((event) => (
             <div key={event.id} className="px-2">

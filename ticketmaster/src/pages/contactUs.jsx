@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import axios from 'axios';
 import Navbar from '../components/navBar';
@@ -15,10 +14,8 @@ function ContactUs() {
     e.preventDefault();
     setSubmitting(true);
 
-    // Firebase Realtime Database URL
     const firebaseURL = 'https://sportstest-cce07-default-rtdb.firebaseio.com/contactmsg.json';
 
-    // Data to be sent to Firebase
     const data = {
       name: name,
       email: email,
@@ -26,7 +23,6 @@ function ContactUs() {
       timestamp: new Date().toISOString()
     };
 
-    // Using Axios to send POST request to Firebase
     axios.post(firebaseURL, data)
       .then(response => {
         setSubmitting(false);
@@ -71,18 +67,18 @@ function ContactUs() {
         {submitted ? (
           <p className="text-green-600">Message submitted successfully!</p>
         ) : (
-          <form onSubmit={handleSubmit} className="max-w-md">
+          <form onSubmit={handleSubmit} className="max-w-md bg-gray-800 p-6 rounded-lg">
             <div className="mb-4">
-              <label htmlFor="name" className="block text-green-600 text-sm font-medium text-gray-700">Name</label>
-              <input type="text" id="name" value={name} onChange={e => setName(e.target.value)} required className="mt-1 p-2 w-full border-gray-300 rounded-md text-black" />
+              <label htmlFor="name" className="block text-green-600 text-sm font-medium">Name</label>
+              <input type="text" id="name" value={name} onChange={e => setName(e.target.value)} required className="mt-1 p-2 w-full border-gray-700 rounded-md bg-gray-900 text-white" />
             </div>
             <div className="mb-4">
-              <label htmlFor="email" className="block text-green-600 text-sm font-medium text-gray-700">Email</label>
-              <input type="email" id="email" value={email} onChange={e => setEmail(e.target.value)} required className="mt-1 p-2 w-full border-gray-300 rounded-md text-black" />
+              <label htmlFor="email" className="block text-green-600 text-sm font-medium">Email</label>
+              <input type="email" id="email" value={email} onChange={e => setEmail(e.target.value)} required className="mt-1 p-2 w-full border-gray-700 rounded-md bg-gray-900 text-white" />
             </div>
             <div className="mb-4">
-              <label htmlFor="message" className="block text-green-600 text-sm font-medium text-gray-700">Message</label>
-              <textarea id="message" value={message} onChange={e => setMessage(e.target.value)} rows="4" required className="mt-1 p-2 w-full border-gray-300 rounded-md text-black"></textarea>
+              <label htmlFor="message" className="block text-green-600 text-sm font-medium">Message</label>
+              <textarea id="message" value={message} onChange={e => setMessage(e.target.value)} rows="4" required className="mt-1 p-2 w-full border-gray-700 rounded-md bg-gray-900 text-white"></textarea>
             </div>
             <button type="submit" disabled={submitting} className="bg-green-600 text-white py-2 px-4 rounded-md disabled:bg-gray-300 disabled:cursor-not-allowed">
               {submitting ? 'Submitting...' : 'Submit'}

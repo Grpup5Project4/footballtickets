@@ -11,6 +11,7 @@ import Confirmation from './pages/confirmation';
 import DashBoard from './pages/dashBoard';
 import ContactUs from './pages/contactUs';
 import AboutUs from './pages/aboutUs';
+import AdminLogin from './pages/adminlogin';
 import {createBrowserRouter,RouterProvider} from 'react-router-dom' ;
 // import './styles/Signup.css';
 // import './styles/profile.css';
@@ -29,6 +30,7 @@ function App(){
  ,{path:'confirmation',element:<Confirmation/> ,errorElement : <div>404 Not Found</div>}
  ,{path:'dashboard',element:<DashBoard/> ,errorElement : <div>404 Not Found</div>}
  ,{path:'profile',element:<Profile/> ,errorElement : <div>404 Not Found</div>}
+ ,{path:'adminlogin',element:<AdminLogin/> ,errorElement : <div>404 Not Found</div>}
 
 ]);
 

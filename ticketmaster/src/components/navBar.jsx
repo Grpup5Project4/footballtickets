@@ -68,7 +68,7 @@ const Navbar = () => {
                 </div>
                 <ul className="hidden w-[50%] items-center  justify-center gap-6 md:flex">
                     <li className="pt-1.5 font-dm text-xl font-medium text-grey">
-                        <Link to="/catalog">Home</Link>
+                        <Link to="/">Home</Link>
                     </li>
                     <li className="pt-1.5 font-dm text-xl font-medium text-grey">
                         <Link to="/catalog">Matches</Link>
