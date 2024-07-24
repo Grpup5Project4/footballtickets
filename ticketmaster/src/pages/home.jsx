@@ -6,6 +6,7 @@ import Hero from "./hero";
 import Navbar from "../components/navBar";
 import Footer from "../components/footer";
 import Faq from "./faq";
+import DiscountCode from "./discount";
 function Home (){
 
   return(
@@ -15,6 +16,7 @@ function Home (){
 <Hero></Hero>
 <Available/>
 <Sponsers></Sponsers>
+<DiscountCode></DiscountCode>
 <AboutUs></AboutUs>
      <Discount/>
      <Faq></Faq>

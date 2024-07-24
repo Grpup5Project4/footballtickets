@@ -1,13 +1,16 @@
-
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { ref, update } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js";
+import { StartFirebase } from "../../public/fireBaseConfig";
 import Dnavbar from "../components/DnabBar";
 import Overview from "./overview";
 import AddEvent from './addevent';
 import AllEvents from './allevents';
 import Users from './users';
-import axios from 'axios';
-import React, { useState, useEffect } from 'react';
+import ContactMessages from './contactMessage';
 
 const DashBoard = () => {
+    const { database } = StartFirebase();
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [date, setDate] = useState('');
@@ -20,10 +23,6 @@ const DashBoard = () => {
     const [events, setEvents] = useState([]);
     const [softDeletedEvents, setSoftDeletedEvents] = useState(() => {
         const saved = localStorage.getItem('softDeletedEvents');
-        return saved ? JSON.parse(saved) : [];
-    });
-    const [softDeletedUsers, setSoftDeletedUsers] = useState(() => {
-        const saved = localStorage.getItem('softDeletedUsers');
         return saved ? JSON.parse(saved) : [];
     });
     const [editMode, setEditMode] = useState(false);
@@ -41,7 +40,8 @@ const DashBoard = () => {
             const usersArray = Object.keys(data).map(key => ({
                 id: key,
                 email: data[key].email,
-                fullName: data[key].fullName
+                fullName: data[key].fullName,
+                active: data[key].active
             }));
             setUsers(usersArray);
         } catch (error) {
@@ -118,7 +118,6 @@ const DashBoard = () => {
                     VAvailability: eventData.VAvailability
                 }
             },
-           
         };
 
         try {
@@ -138,10 +137,26 @@ const DashBoard = () => {
         localStorage.setItem('softDeletedEvents', JSON.stringify(updatedSoftDeletedEvents));
     };
 
-    const handleSoftDeleteUser = async (userId) => {
-        const updatedSoftDeletedUsers = [...softDeletedUsers, userId];
-        setSoftDeletedUsers(updatedSoftDeletedUsers);
-        localStorage.setItem('softDeletedUsers', JSON.stringify(updatedSoftDeletedUsers));
+    const handleActivateUser = async (userId) => {
+        try {
+            const userRef = ref(database, `users/${userId}`);
+            await update(userRef, { active: true });
+            alert('User has been activated');
+            fetchUsers();
+        } catch (error) {
+            console.error('Error activating user:', error);
+        }
+    };
+
+    const handleDeactivateUser = async (userId) => {
+        try {
+            const userRef = ref(database, `users/${userId}`);
+            await update(userRef, { active: false });
+            alert('User has been deactivated');
+            fetchUsers();
+        } catch (error) {
+            console.error('Error deactivating user:', error);
+        }
     };
 
     const handleEditEvent = (event) => {
@@ -158,7 +173,6 @@ const DashBoard = () => {
     };
 
     const filteredEvents = events.filter(event => !softDeletedEvents.includes(event.id));
-    const filteredUsers = users.filter(user => !softDeletedUsers.includes(user.id));
 
     return (
         <>
@@ -171,15 +185,13 @@ const DashBoard = () => {
 
                     <Overview />
 
-              
-
                     <AllEvents
                         events={filteredEvents}
                         onEdit={handleEditEvent}
                         onDelete={handleSoftDeleteEvent}
                     />
 
-<AddEvent
+                    <AddEvent
                         editMode={editMode}
                         eventData={{
                             title,
@@ -195,12 +207,14 @@ const DashBoard = () => {
                     />
 
                     <Users
-                        users={filteredUsers}
-                        onDelete={handleSoftDeleteUser}
+                        users={users}
+                        onActivate={handleActivateUser}
+                        onDeactivate={handleDeactivateUser}
                     />
+                    
+                    <ContactMessages />
                 </div>
             </div>
-            
         </>
     );
 };

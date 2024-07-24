@@ -613,7 +613,7 @@ function AboutUs (){
                 <span className="block mb-4 text-lg font-semibold text-green-600">
                   Why Choose Us
                 </span>
-                <h3 className="mb-5 text-xl font-bold text-dark dark:text-white sm:text-[40px]/[48px]">
+                <h3 className="mb-5 text-xl font-bold text-dark  sm:text-[40px]/[48px]">
     Score Big with Every Match – Get Your Football Tickets Now!
 </h3>
 <p className="mb-5 text-base text-body-color dark:text-dark-6">
@@ -624,7 +624,7 @@ function AboutUs (){
 </p>
 <Link 
   to='/catalog'
-  className="inline-flex items-center justify-center py-3 text-base font-medium text-center text-white border border-transparent rounded-md px-7 bg-green-600 hover:bg-opacity-90"
+  className="inline-flex items-center justify-center py-3 text-base font-medium text-center text-white border border-transparent  px-7 bg-green-600 hover:bg-opacity-90"
 >
   View Matches
 </Link>

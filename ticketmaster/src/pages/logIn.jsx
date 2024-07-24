@@ -7,6 +7,7 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
 } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
+import Swal from 'sweetalert2';
 
 function Login() {
   const { auth } = StartFirebase();
@@ -19,12 +20,24 @@ function Login() {
     try {
       const user = await signInWithEmailAndPassword(auth, email, pass);
       if (user) {
-        sessionStorage.setItem("userId" , user.user.uid)
-        alert("Logged in successfully");
-        navigate("/");
+        sessionStorage.setItem("userId", user.user.uid);
+
+        Swal.fire({
+          title: "Success!",
+          text: "Logged in successfully",
+          icon: "success",
+          confirmButtonText: "OK",
+        }).then(() => {
+          navigate("/");
+        });
       }
     } catch (error) {
-      alert(error.message);
+      Swal.fire({
+        title: "Error!",
+        text: error.message,
+        icon: "error",
+        confirmButtonText: "OK",
+      });
     }
   };
 
@@ -33,18 +46,24 @@ function Login() {
       const provider = new GoogleAuthProvider();
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
-      console.log(result);
-
-      navigate("/");
- 
 
       if (user) {
-        
-        alert("Logged in with Google successfully");
-        navigate("/");
+        Swal.fire({
+          title: "Success!",
+          text: "Logged in with Google successfully",
+          icon: "success",
+          confirmButtonText: "OK",
+        }).then(() => {
+          navigate("/");
+        });
       }
     } catch (error) {
-      alert(error.message);
+      Swal.fire({
+        title: "Error!",
+        text: error.message,
+        icon: "error",
+        confirmButtonText: "OK",
+      });
     }
   };
 
@@ -75,19 +94,27 @@ function Login() {
             Log In
           </button>
           <div className="or-with">
-          <hr />
-          <span>Or With</span>
-          <hr />
-        </div>
-      
-        <button className="google-button" onClick={loginWithGoogle}>
-          Login with Google
-        </button>
+            <hr />
+            <span>Or With</span>
+            <hr />
+          </div>
+
+          <button className="google-button" onClick={loginWithGoogle}>
+            Login with Google
+          </button>
         </form>
-     
+
         <p className="login-link">
           Dont have an account? <Link to="/signup">Sign Up</Link>
         </p>
+
+        <div className="admin-button-container">
+          <Link to="/adminlogin">
+            <button className="admin-button bg-green-600 text-white py-1 px-3 rounded">
+              Admin
+            </button>
+          </Link>
+        </div>
       </div>
     </div>
   );
