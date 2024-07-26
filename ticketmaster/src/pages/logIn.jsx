@@ -1,5 +1,6 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
+
 import "../styles/Signup.css";
 import { StartFirebase } from "../../public/fireBaseConfig";
 import {
@@ -14,21 +15,27 @@ function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
+  const location = useLocation();
 
-  const send = async (e) => {
+  const { eventTo, ticketTypeTo, priceTo } = location.state || {};
+
+  const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const user = await signInWithEmailAndPassword(auth, email, pass);
-      if (user) {
-        sessionStorage.setItem("userId", user.user.uid);
+      const userCredential = await signInWithEmailAndPassword(auth, email, pass);
+      const user = userCredential.user;
 
+      if (user) {
+        sessionStorage.setItem("userId", user.uid);
         Swal.fire({
           title: "Success!",
           text: "Logged in successfully",
           icon: "success",
           confirmButtonText: "OK",
         }).then(() => {
-          navigate("/");
+          const redirectPath = sessionStorage.getItem("redirectPath") || "/";
+          sessionStorage.removeItem("redirectPath");
+          navigate(redirectPath, { state: { event: eventTo, ticketType: ticketTypeTo, price: priceTo } });
         });
       }
     } catch (error) {
@@ -41,7 +48,7 @@ function Login() {
     }
   };
 
-  const loginWithGoogle = async () => {
+  const handleGoogleLogin = async () => {
     try {
       const provider = new GoogleAuthProvider();
       const result = await signInWithPopup(auth, provider);
@@ -54,7 +61,9 @@ function Login() {
           icon: "success",
           confirmButtonText: "OK",
         }).then(() => {
-          navigate("/");
+          const redirectPath = sessionStorage.getItem("redirectPath") || "/";
+          sessionStorage.removeItem("redirectPath");
+          navigate(redirectPath, { state: { event: eventTo, ticketType: ticketTypeTo, price: priceTo } });
         });
       }
     } catch (error) {
@@ -71,10 +80,10 @@ function Login() {
     <div className="main-container">
       <div className="signup-container">
         <h1 className="title">
-          Hi, Welcome Back! <span>👋</span>
+          Hi, Welcome Back! <span role="img" aria-label="wave">👋</span>
         </h1>
 
-        <form className="signup-form" onSubmit={send}>
+        <form className="signup-form" onSubmit={handleLogin}>
           <input
             type="email"
             value={email}
@@ -90,22 +99,24 @@ function Login() {
             required
             onChange={(e) => setPass(e.target.value)}
           />
+
           <button type="submit" className="signup-button">
             Log In
           </button>
+
           <div className="or-with">
             <hr />
             <span>Or With</span>
             <hr />
           </div>
 
-          <button className="google-button" onClick={loginWithGoogle}>
+          <button className="google-button" onClick={handleGoogleLogin}>
             Login with Google
           </button>
         </form>
 
         <p className="login-link">
-          Dont have an account? <Link to="/signup">Sign Up</Link>
+          Don't have an account? <Link to="/signup">Sign Up</Link>
         </p>
 
         <div className="admin-button-container">

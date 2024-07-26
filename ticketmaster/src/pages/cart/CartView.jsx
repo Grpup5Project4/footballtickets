@@ -33,20 +33,86 @@ const CartView = () => {
     const discountedTotal = totalPrice - (totalPrice * discount) / 100;
 
     const generatePDF = () => {
+        if (!event) return;
+
         const doc = new jsPDF();
-        doc.setFontSize(20);
-        doc.text('Purchase Ticket', 20, 20);
+        const margin = 15;
+        const pageWidth = doc.internal.pageSize.width;
+        const lineHeight = 8;
+
+        // Title Section
+        doc.setFontSize(22);
+        doc.setFont('Helvetica', 'bold');
+        doc.setTextColor(0, 102, 204); // Blue color for title
+        doc.text('Soccer Match Ticket', margin, 30);
+
+        // Subtitle
+        doc.setFontSize(14);
+        doc.setFont('Helvetica', 'bold');
+        doc.setTextColor(0, 0, 0); // Black color for subtitle
+        doc.text('Receipt', margin, 45);
+
+        // Stylish Horizontal Line
+        doc.setDrawColor(0, 102, 204); // Blue color for line
+        doc.setLineWidth(1.5);
+        doc.line(margin, 50, pageWidth - margin, 50);
+
+        // Event Details
         doc.setFontSize(12);
-        doc.text(`Event: ${event.title}`, 20, 40);
-        doc.text(`Ticket Type: ${ticketType}`, 20, 50);
-        doc.text(`Quantity: ${quantity}`, 20, 60);
-        doc.text(`Price: $${price}`, 20, 70);
-        doc.text(`Discount: ${discount}%`, 20, 80);
-        doc.text(`Total: $${discountedTotal.toFixed(2)}`, 20, 90);
-        doc.save('purchase_ticket.pdf');
+        doc.setFont('Helvetica', 'normal');
+        doc.setTextColor(0, 0, 0); // Black color for text
+        let y = 60;
+
+        doc.text(`Event: ${event.title}`, margin, y);
+        y += lineHeight;
+        doc.text(`Date: ${event.date}`, margin, y);  // Assuming you have event.date
+        y += lineHeight;
+        doc.text(`Venue: ${event.location}`, margin, y);  // Assuming you have event.venue
+        y += lineHeight + 15;
+
+        // Ticket Details
+        doc.setFontSize(14);
+        doc.setFont('Helvetica', 'bold');
+        doc.setTextColor(0, 102, 204); // Blue color for headers
+        doc.text('Ticket Details', margin, y);
+        y += lineHeight + 10;
+
+        doc.setFontSize(12);
+        doc.setFont('Helvetica', 'normal');
+        doc.setTextColor(0, 0, 0); // Black color for text
+        doc.text(`Type: ${ticketType}`, margin, y);
+        y += lineHeight;
+        doc.text(`Quantity: ${quantity}`, margin, y);
+        y += lineHeight;
+        doc.text(`Price per Ticket: $${price}`, margin, y);
+        y += lineHeight;
+        doc.text(`Discount: ${discount}%`, margin, y);
+        y += lineHeight + 15;
+
+        // Total
+        doc.setFontSize(16);
+        doc.setFont('Helvetica', 'bold');
+        doc.setTextColor(0, 102, 204); // Blue color for total
+        doc.text(`Total: $${discountedTotal.toFixed(2)}`, margin, y);
+
+        // Footer
+        y += lineHeight + 20;
+        doc.setFontSize(10);
+        doc.setFont('Helvetica', 'italic');
+        doc.setTextColor(0, 0, 0); // Black color for footer
+        doc.text('Thank you for your purchase!', margin, y);
+        y += lineHeight;
+        doc.text('For support, contact us at support@tickett.com', margin, y);
+
+        doc.save('soccer_ticket_receipt.pdf');
     };
 
-    let matchTitle = event.title;
+
+    if (!event) {
+        return <div>Loading...</div>;
+    }
+
+    let matchTitle = event.title || 'Match Title';
     const teams = matchTitle.split("vs");
 
     return (
@@ -74,7 +140,7 @@ const CartView = () => {
                                 value={quantity}
                                 min="1"
                                 onChange={(e) => handleQuantityChange(Number(e.target.value))}
-                                className="w-10 p-1 text-center  "
+                                className="w-10 p-1 text-center"
                             />
                             <button onClick={() => handleQuantityChange(quantity + 1)} className="bg-[#F8C809] p-1 rounded-r">
                                 +
@@ -106,7 +172,7 @@ const CartView = () => {
                             />
                             <button
                                 onClick={handleApplyCodeClick}
-                                className="bg-blue-500 text-white p-1 rounded hover:bg-blue-600"
+                                className="bg-green-500 ml-5 text-white p-1 rounded hover:bg-green-600"
                             >
                                 Apply Code
                             </button>
