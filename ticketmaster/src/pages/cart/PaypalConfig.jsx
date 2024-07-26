@@ -38,26 +38,29 @@ const PaypalConfig = ({ event, totalPrice, userId, ticketType, quantity, downloa
     };
 
     const handlePayPalButtonClick = () => {
+
+
         if (!sessionStorage.getItem("userId")) {
-            navigate("/login");
+            sessionStorage.setItem("redirectPath", window.location.pathname + window.location.search);
+            navigate("/login", { state: { eventTo: event, ticketTypeTo: ticketType, priceTo: totalPrice } });
+
         }
     };
 
+
     return (
         <div>
-            <PriceContext.Provider value={totalPrice}>
-                {success ? (
-                    <div>
-                        <p>Payment successful! Your order is confirmed.</p>
-                        <button onClick={downloadPDF} className="mt-4 bg-blue-500 text-white p-2 rounded hover:bg-blue-600">
-                            Download PDF
-                        </button>
-                    </div>
-                ) : (
-                            <PayPalButton onClick={handlePayPalButtonClick} onSuccess={handleSuccess} onError={handleError} />
-                )}
-                {error && <div className="error">Payment error: {error.message}</div>}
-            </PriceContext.Provider>
+            {success ? (
+                <div>
+                    <p>Payment successful! Your order is confirmed.</p>
+                    <button onClick={downloadPDF} className="mt-4 bg-green-600 text-white p-2 rounded hover:bg-green-600">
+                        Download PDF
+                    </button>
+                </div>
+            ) : (
+                <PayPalButton eventTo={event} ticketTypeTo={ticketType} priceTo={totalPrice} onClick={handlePayPalButtonClick} onSuccess={handleSuccess} onError={handleError} />
+            )}
+            {error && <div className="error">Payment error: {error.message}</div>}
         </div>
     );
 };
